@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useContext } from 'react';
+import { ThemeColorOverrideContext } from '@/components/ebunny/ThemeColorOverrideContext';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { themeColorsQueryOptions } from '../api/themeColors';
 import {
@@ -366,18 +367,16 @@ export function useThemeColors() {
 
   const { data: colors, isLoading, error } = useQuery(themeColorsQueryOptions());
 
-  // Apply colors when loaded or changed
-  useEffect(() => {
-    const colorsToApply = colors || DEFAULT_THEME_COLORS;
-    applyThemeColors(colorsToApply);
-  }, [colors]);
+  // Reading a traffic/status color must not re-apply the operator palette.
+  // ThemeColorsProvider is the sole runtime owner of document colors.
+  const override = useContext(ThemeColorOverrideContext);
 
   const invalidateColors = () => {
     queryClient.invalidateQueries({ queryKey: ['theme-colors'] });
   };
 
   return {
-    colors: colors || DEFAULT_THEME_COLORS,
+    colors: override || colors || DEFAULT_THEME_COLORS,
     isLoading,
     error,
     invalidateColors,
