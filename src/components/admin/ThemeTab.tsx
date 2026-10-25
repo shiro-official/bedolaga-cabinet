@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { AdminThemePreviewContext } from '../ebunny/AdminThemePreviewContext';
+import { useContext, useEffect, useState, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { themeColorsApi } from '../../api/themeColors';
@@ -28,6 +29,11 @@ function colorsEqual(a: ThemeColors, b: ThemeColors): boolean {
 }
 
 export function ThemeTab() {
+  const setThemePreview = useContext(AdminThemePreviewContext);
+  useEffect(() => {
+    setThemePreview(true);
+    return () => setThemePreview(false);
+  }, [setThemePreview]);
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 

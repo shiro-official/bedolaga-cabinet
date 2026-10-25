@@ -160,7 +160,7 @@ export default function SubscriptionListCard({
   // вложенные кнопки невалидны и ведут себя в браузерах непредсказуемо.
   return (
     <div
-      className="overflow-hidden rounded-2xl border transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
+      className="ebunny-subscription-card overflow-hidden rounded-2xl border transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
       style={{ background: bgColor, borderColor }}
     >
       <button onClick={handleClick} className="w-full p-4 text-left">

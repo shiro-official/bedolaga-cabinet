@@ -1,3 +1,4 @@
+import { EBUNNY_COLORS } from '@/components/ebunny/brand';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -33,6 +34,8 @@ import { applyThemeColors } from './hooks/useThemeColors';
 import { readThemeColorsHint } from './utils/themeColorsHint';
 import { UI } from './config/constants';
 import './styles/globals.css';
+import './styles/ebunny.css';
+import './styles/ebunny-admin.css';
 
 // Harden the global encoders against lone UTF-16 surrogates (truncated emoji in
 // backend names/remarks) BEFORE anything renders or fetches — otherwise such a
@@ -158,7 +161,7 @@ const themeColorsReady: Promise<void> = readThemeColorsHint()
   : Promise.race([
       queryClient
         .fetchQuery(themeColorsQueryOptions())
-        .then((colors) => applyThemeColors(colors))
+        .then(() => applyThemeColors(EBUNNY_COLORS))
         .catch(() => {}),
       new Promise<void>((resolve) => setTimeout(resolve, UI.THEME_COLORS_FIRST_PAINT_TIMEOUT_MS)),
     ]);

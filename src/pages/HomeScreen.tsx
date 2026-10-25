@@ -1,3 +1,4 @@
+import { EbunnyWelcomeBanner } from '@/components/ebunny/WelcomeBanner';
 import { useLiteMode } from '@/hooks/useLiteMode';
 
 import Dashboard from './Dashboard';
@@ -15,5 +16,10 @@ import DashboardLite from './DashboardLite';
 export default function HomeScreen() {
   const { lite } = useLiteMode();
 
-  return lite ? <DashboardLite /> : <Dashboard />;
+  return (
+    <div className="ebunny-home">
+      <EbunnyWelcomeBanner />
+      {lite ? <DashboardLite /> : <Dashboard />}
+    </div>
+  );
 }

@@ -1,0 +1,547 @@
+/* eBunny presentation layer, based on cabinet v1.80.1. /admin keeps its original UI.
+   Font licenses are shipped alongside the local WOFF assets in /ebunny/fonts/. */
+@font-face {
+  font-family: "eBunny Text";
+  src: url("/ebunny/fonts/manrope.woff") format("woff");
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "eBunny Display";
+  src: url("/ebunny/fonts/oswald.woff") format("woff");
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "eBunny Logo";
+  src: url("/ebunny/fonts/oxanium.woff") format("woff");
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+html[data-ebunny] {
+  --eb-bg: #1c1d22;
+  --eb-surface: #23242c;
+  --eb-fg: #fff4df;
+  --eb-muted: #b9b6c0;
+  --eb-line: #fff4df33;
+  --eb-pink: #ff87bb;
+  --eb-pink-text: #ff9cc8;
+  --eb-lime: #d8f882;
+  --eb-lime-text: #d8f882;
+  --eb-ink: #25212b;
+  --eb-dot: #fff4df0b;
+  --eb-shadow: #101114;
+  --bento-radius: 9px;
+  --bento-padding: 24px;
+  --bento-gap: 18px;
+}
+html.light[data-ebunny] {
+  --eb-bg: #f7f0e1;
+  --eb-surface: #fffaf0;
+  --eb-fg: #25212b;
+  --eb-muted: #625b69;
+  --eb-line: #25212b33;
+  --eb-pink-text: #a53065;
+  --eb-lime-text: #536c19;
+  --eb-dot: #25212b09;
+  --eb-shadow: #25212b;
+}
+html[data-ebunny] body {
+  background: var(--eb-bg);
+  color: var(--eb-fg);
+  font-family: "Twemoji Country Flags", "eBunny Text", Arial, sans-serif;
+}
+html[data-ebunny] body::before {
+  display: block;
+  opacity: 1;
+  background-image: radial-gradient(circle, var(--eb-dot) 0.7px, transparent 0.9px);
+  background-size: 12px 12px;
+}
+html[data-ebunny] :is(h1, h2, h3) {
+  font-family: "eBunny Display", "eBunny Text", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+}
+html[data-ebunny] h1 {
+  font-size: clamp(29px, 3vw, 40px);
+  line-height: 1.17;
+}
+html[data-ebunny] :is(button, input, textarea, select) {
+  font-family: inherit;
+}
+html[data-ebunny] :is(.card, .bento-card) {
+  background-color: var(--eb-surface);
+  border: 1.5px solid var(--eb-line);
+  border-radius: 9px;
+  box-shadow: 3px 3px 0 var(--eb-shadow);
+}
+html[data-ebunny] :is(.card-hover, .bento-card-hover):hover {
+  background-color: var(--eb-surface);
+  border-color: var(--eb-pink);
+  box-shadow: 4px 4px 0 var(--eb-pink);
+  transform: translate(-1px, -1px);
+}
+html[data-ebunny] .bento-card::before {
+  display: none;
+}
+html[data-ebunny] :is(.btn-primary, .btn-secondary) {
+  border: 2px solid var(--eb-ink);
+  border-radius: 5px;
+  font-weight: 800;
+  box-shadow: 3px 3px 0 var(--eb-shadow);
+  min-height: 44px;
+  transition:
+    transform 0.16s,
+    box-shadow 0.16s,
+    background-color 0.16s;
+}
+html[data-ebunny] .btn-primary {
+  background: var(--eb-pink);
+  color: var(--eb-ink);
+}
+html[data-ebunny] .btn-secondary {
+  background: var(--eb-surface);
+  color: var(--eb-fg);
+  border-color: var(--eb-line);
+}
+html[data-ebunny] :is(.btn-primary, .btn-secondary):not(:disabled):hover {
+  transform: translate(-1px, -2px);
+  box-shadow: 4px 5px 0 var(--eb-shadow);
+}
+html[data-ebunny] :is(.btn-primary, .btn-secondary):not(:disabled):active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--eb-shadow);
+}
+html[data-ebunny] .input {
+  background: var(--eb-bg);
+  color: var(--eb-fg);
+  border: 1.5px solid var(--eb-line);
+  border-radius: 5px;
+  min-height: 47px;
+  box-shadow: none;
+}
+html[data-ebunny] .input:focus {
+  border-color: var(--eb-pink-text);
+  outline: 2px solid var(--eb-pink);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+html[data-ebunny] .label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--eb-muted);
+}
+html[data-ebunny] :is(button, a, input, textarea, select):focus-visible {
+  outline: 2px solid var(--eb-pink-text);
+  outline-offset: 4px;
+}
+.ebunny-wordmark {
+  display: none;
+}
+html[data-ebunny] .ebunny-wordmark {
+  display: inline-flex;
+  font:
+    800 29px / 1.15 "eBunny Logo",
+    Arial,
+    sans-serif;
+  letter-spacing: -1.2px;
+  white-space: nowrap;
+  transform: skewX(-10deg) rotate(-2deg);
+  color: var(--eb-fg);
+}
+html[data-ebunny] .ebunny-wordmark b {
+  font-weight: inherit;
+  color: var(--eb-pink-text);
+}
+html[data-ebunny] .ebunny-wordmark small {
+  font: 700 8px / 1 monospace;
+  letter-spacing: 1px;
+  margin-left: 7px;
+}
+html[data-ebunny] .ebunny-brand-link > :not(.ebunny-wordmark) {
+  display: none;
+}
+html[data-ebunny] .ebunny-desktop-header {
+  background: var(--eb-bg);
+  border-bottom: 1px solid var(--eb-line);
+}
+html[data-ebunny] .ebunny-desktop-header > div {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 20px;
+}
+html[data-ebunny] .ebunny-desktop-header nav {
+  border: 0;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  justify-self: center;
+  gap: 3px;
+  min-width: 0;
+  padding: 0;
+}
+html[data-ebunny] .ebunny-desktop-header nav > a {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 8px 9px;
+  font-size: 12px;
+}
+html[data-ebunny] .ebunny-desktop-header nav > a:hover {
+  border-color: var(--eb-line);
+  background: var(--eb-surface);
+}
+html[data-ebunny] .ebunny-desktop-header nav > a > span.absolute {
+  border-radius: 4px;
+  background: var(--eb-pink);
+  opacity: 0.14;
+}
+html[data-ebunny] .ebunny-desktop-header :is(button, [role="combobox"]) {
+  border-radius: 5px;
+}
+html[data-ebunny] .ebunny-home > .ebunny-story {
+  margin-bottom: 30px;
+}
+.ebunny-story {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 230px;
+  border: 2px solid var(--eb-fg);
+  border-radius: 9px;
+  background: var(--eb-surface);
+  box-shadow: 5px 5px 0 var(--eb-pink);
+}
+.ebunny-story::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(circle, var(--eb-line) 0.8px, transparent 1px);
+  background-size: 10px 10px;
+  mask-image: linear-gradient(110deg, transparent 30%, #000);
+  opacity: 0.45;
+}
+.ebunny-story::after {
+  content: "";
+  position: absolute;
+  width: 205px;
+  height: 205px;
+  border: 2px solid var(--eb-fg);
+  background: var(--eb-lime);
+  border-radius: 48% 52% 40% 60%;
+  right: 38px;
+  bottom: -53px;
+  transform: rotate(-12deg);
+  z-index: -1;
+}
+.ebunny-story-copy {
+  position: relative;
+  z-index: 1;
+  padding: 30px 35px;
+  width: calc(100% - 230px);
+}
+.ebunny-sticker {
+  display: inline-block;
+  background: var(--eb-lime);
+  color: var(--eb-ink);
+  border: 1px solid var(--eb-ink);
+  padding: 4px 9px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+  box-shadow: 2px 2px 0 var(--eb-ink);
+}
+html[data-ebunny] .ebunny-story h2 {
+  margin: 14px 0 9px;
+  font-size: 40px;
+  line-height: 1.07;
+  text-transform: uppercase;
+}
+.ebunny-story p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--eb-muted);
+  max-width: 340px;
+}
+.ebunny-story-rabbit {
+  position: absolute;
+  bottom: -25px;
+  right: 30px;
+  width: 200px;
+  height: 280px;
+  object-fit: contain;
+  pointer-events: none;
+}
+.ebunny-login-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 70px;
+  width: 100%;
+  max-width: 1060px;
+  padding: 44px 0;
+}
+.ebunny-story-login {
+  min-height: 535px;
+  transform: rotate(-1deg);
+  box-shadow: 7px 7px 0 var(--eb-pink);
+}
+.ebunny-story-login .ebunny-story-copy {
+  width: 100%;
+  padding: 38px;
+}
+html[data-ebunny] .ebunny-story-login h2 {
+  font-size: 64px;
+  margin-top: 23px;
+}
+.ebunny-story-login p {
+  max-width: 210px;
+  margin-top: 18px;
+  font-size: 14px;
+}
+.ebunny-story-login .ebunny-story-rabbit {
+  width: 255px;
+  height: 360px;
+  right: -14px;
+  bottom: -22px;
+}
+.ebunny-story-login::after {
+  width: 285px;
+  height: 285px;
+  right: -30px;
+  bottom: -64px;
+}
+.ebunny-site-link {
+  display: inline-block;
+  position: relative;
+  margin-top: 42px;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+html[data-ebunny] .ebunny-login-brand {
+  text-align: center;
+  margin-bottom: 26px;
+}
+html[data-ebunny] .ebunny-login-brand .ebunny-wordmark {
+  font-size: 41px;
+  margin: 0 0 14px;
+}
+html[data-ebunny] .ebunny-login-brand h1 {
+  font-family: "eBunny Text", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--eb-muted);
+}
+html[data-ebunny] .ebunny-original-logo {
+  display: none;
+}
+html[data-ebunny] .ebunny-login-form > .text-center:has(.ebunny-original-logo):not(:has(.mt-3)) {
+  display: none;
+}
+html[data-ebunny] .ebunny-login-form > .card {
+  padding: 28px;
+  border: 2px solid var(--eb-fg);
+  box-shadow: 5px 5px 0 var(--eb-shadow);
+}
+@media (min-width: 1024px) and (max-width: 1390px) {
+  html[data-ebunny] .ebunny-desktop-header > div {
+    gap: 12px;
+    padding-inline: 18px;
+  }
+  html[data-ebunny] .ebunny-desktop-header nav > a {
+    font-size: 10px;
+    padding: 8px 6px;
+    gap: 4px;
+  }
+  html[data-ebunny] .ebunny-desktop-header nav > a > svg {
+    display: none;
+  }
+  html[data-ebunny] .ebunny-desktop-header .ebunny-wordmark {
+    font-size: 25px;
+  }
+}
+@media (max-width: 900px) {
+  .ebunny-login-layout {
+    max-width: 450px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+    padding: 50px 0 20px;
+  }
+  .ebunny-login-form {
+    order: 0;
+  }
+  .ebunny-story-login {
+    order: 1;
+    min-height: 190px;
+    transform: none;
+  }
+  .ebunny-story-login .ebunny-story-copy {
+    width: 67%;
+    padding: 22px;
+  }
+  html[data-ebunny] .ebunny-story-login h2 {
+    font-size: 32px;
+    margin: 12px 0 8px;
+  }
+  .ebunny-story-login p {
+    font-size: 11px;
+    margin-top: 0;
+    max-width: 220px;
+  }
+  .ebunny-story-login .ebunny-story-rabbit {
+    width: 145px;
+    height: 205px;
+    right: -8px;
+    bottom: -14px;
+  }
+  .ebunny-story-login::after {
+    width: 150px;
+    height: 150px;
+    right: -10px;
+    bottom: -35px;
+  }
+  .ebunny-site-link {
+    font-size: 10px;
+    margin-top: 16px;
+  }
+}
+@media (max-width: 600px) {
+  html[data-ebunny] {
+    --bento-padding: 19px;
+    --bento-gap: 14px;
+  }
+  .ebunny-story {
+    min-height: 175px;
+    box-shadow: 3px 3px 0 var(--eb-pink);
+  }
+  .ebunny-story-copy {
+    padding: 21px;
+    width: calc(100% - 105px);
+  }
+  html[data-ebunny] .ebunny-story h2 {
+    font-size: 31px;
+    margin: 12px 0 8px;
+  }
+  .ebunny-story p {
+    font-size: 11px;
+    line-height: 1.65;
+    max-width: 220px;
+  }
+  .ebunny-sticker {
+    font-size: 8px;
+    padding: 3px 5px;
+    letter-spacing: 0.035em;
+  }
+  .ebunny-story-rabbit {
+    width: 130px;
+    height: 182px;
+    right: -10px;
+    bottom: -12px;
+  }
+  .ebunny-story::after {
+    width: 140px;
+    height: 140px;
+    right: -13px;
+    bottom: -40px;
+  }
+  .ebunny-login-form {
+    max-width: none;
+  }
+  html[data-ebunny] .ebunny-login-form > .card {
+    padding: 21px;
+  }
+  html[data-ebunny] .ebunny-login-brand .ebunny-wordmark {
+    font-size: 36px;
+  }
+  html[data-ebunny] .ebunny-brand-link .ebunny-wordmark {
+    font-size: 25px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-ebunny] :is(.card-hover, .bento-card-hover, .btn-primary, .btn-secondary) {
+    transition: none;
+    transform: none;
+  }
+}
+html[data-ebunny] .ebunny-login-theme {
+  position: fixed;
+  left: max(16px, env(safe-area-inset-left, 0px));
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  min-height: 38px;
+  padding: 8px;
+}
+
+/* Subscription states retain their original status badges and text colors. */
+html[data-ebunny] .ebunny-subscription-card {
+  background: var(--eb-surface) !important;
+  border: 1.5px solid var(--eb-line) !important;
+  border-radius: 9px;
+  box-shadow: 4px 4px 0 var(--eb-shadow);
+  backdrop-filter: none;
+}
+html[data-ebunny] .ebunny-subscription-card:hover {
+  border-color: var(--eb-pink) !important;
+}
+html[data-ebunny] .ebunny-stat-card {
+  border: 1.5px solid var(--eb-line);
+  border-radius: 7px;
+  background: var(--eb-surface);
+  box-shadow: 3px 3px 0 var(--eb-shadow);
+}
+html[data-ebunny] :is(a, button).bg-accent-500 {
+  border: 2px solid var(--eb-ink);
+  border-radius: 5px;
+  box-shadow: 3px 3px 0 var(--eb-shadow);
+  font-weight: 800;
+  color: var(--eb-ink);
+}
+@media (min-width: 901px) {
+  .ebunny-story-login .ebunny-story-rabbit {
+    width: 235px;
+    height: 330px;
+  }
+}
+
+@media (max-width: 600px) {
+  .ebunny-home .ebunny-story-copy {
+    width: calc(100% - 125px);
+  }
+}
+@media (max-width: 360px) {
+  .ebunny-home .ebunny-story-copy {
+    width: calc(100% - 88px);
+  }
+  html[data-ebunny] .ebunny-story h2 {
+    font-size: 28px;
+  }
+  .ebunny-home .ebunny-story p {
+    max-width: 140px;
+  }
+  .ebunny-home .ebunny-story-rabbit {
+    width: 110px;
+    height: 154px;
+    right: -8px;
+  }
+  .ebunny-home .ebunny-sticker {
+    font-size: 7px;
+    white-space: nowrap;
+  }
+  .ebunny-story-login .ebunny-story-copy {
+    width: 70%;
+  }
+  .ebunny-story-login .ebunny-story-rabbit {
+    width: 110px;
+    height: 154px;
+  }
+}

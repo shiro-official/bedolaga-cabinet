@@ -252,7 +252,8 @@
           });
       })();
     </script>
-  </head>
+  <script>if(location.pathname!=='/admin'&&!location.pathname.startsWith('/admin/'))document.documentElement.dataset.ebunny='true';else document.documentElement.dataset.ebunnyAdmin='true';</script>
+</head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

@@ -1,3 +1,4 @@
+import { EbunnyWordmark } from '@/components/ebunny/Wordmark';
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
@@ -175,7 +176,7 @@ export function AppShell({ children }: AppShellProps) {
           скроллбара, и капсула по центру прыгала бы на полширины скроллбара при
           переходах между страницами со скроллом и без. 100vw даёт ту же ось
           центрирования, что и у body (тоже 100vw). */}
-      <header className="fixed left-0 top-0 z-50 hidden w-screen border-b border-dark-800/50 bg-dark-950/95 lg:block">
+      <header className="ebunny-desktop-header fixed left-0 top-0 z-50 hidden w-screen border-b border-dark-800/50 bg-dark-950/95 lg:block">
         {/* 3-зонный grid: лого | капсула | действия. Колонки 1fr_auto_1fr держат
             капсулу строго по центру вьюпорта НЕЗАВИСИМО от ширины лого/действий,
             а действия — у правого края. Поэтому ничего не «скачет» при переходах
@@ -184,9 +185,10 @@ export function AppShell({ children }: AppShellProps) {
           {/* Logo */}
           <Link
             to="/"
-            className="flex shrink-0 items-center gap-2.5 justify-self-start"
+            className="ebunny-brand-link flex shrink-0 items-center gap-2.5 justify-self-start"
             onClick={handleNavClick}
           >
+            <EbunnyWordmark />
             <div className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg bg-dark-800">
               <span
                 className={cn(

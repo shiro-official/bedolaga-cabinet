@@ -1,0 +1,181 @@
+/* Admin presentation only. Customer styles and all business handlers stay separate. */
+html[data-ebunny-admin] {
+  --ea-bg: var(--color-dark-bg, #1c1d22);
+  --ea-surface: var(--color-dark-surface, #23242c);
+  --ea-text: var(--color-dark-text, #fff4df);
+  --ea-muted: var(--color-dark-text-secondary, #b9b6c0);
+  --ea-accent: rgb(var(--color-accent-500, 255, 135, 187));
+  --ea-line: color-mix(in srgb, var(--ea-text) 18%, transparent);
+  --ea-dot: color-mix(in srgb, var(--ea-text) 3%, transparent);
+  --ea-shadow: #101114;
+  --bento-radius: 9px;
+}
+html.light[data-ebunny-admin] {
+  --ea-bg: var(--color-light-bg, #f7f0e1);
+  --ea-surface: var(--color-light-surface, #fffaf0);
+  --ea-text: var(--color-light-text, #25212b);
+  --ea-muted: var(--color-light-text-secondary, #625b69);
+  --ea-shadow: #25212b;
+}
+html[data-ebunny-admin] body {
+  color: var(--ea-text);
+  background: var(--ea-bg);
+  font-family: "Twemoji Country Flags", "eBunny Text", Arial, sans-serif;
+}
+html[data-ebunny-admin] body::before {
+  display: block;
+  opacity: 1;
+  background-image: radial-gradient(circle, var(--ea-dot) 0.7px, transparent 0.9px);
+  background-size: 12px 12px;
+}
+html[data-ebunny-admin] :is(h1, h2, h3) {
+  font-family: "eBunny Display", "eBunny Text", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+}
+html[data-ebunny-admin] h1 {
+  font-size: 30px;
+  line-height: 1.2;
+}
+html[data-ebunny-admin] :is(button, input, textarea, select) {
+  font-family: inherit;
+}
+/* Keep dense tables and editor text readable; never change their layout or scroll. */
+html[data-ebunny-admin]
+:is(.card, .bento-card, .group\/card, div.border.rounded-2xl, section.border.rounded-2xl) {
+  background: var(--ea-surface);
+  border-color: var(--ea-line);
+  border-radius: 9px;
+  box-shadow: 3px 3px 0 var(--ea-shadow);
+  backdrop-filter: none;
+}
+html[data-ebunny-admin] :is(.card-hover, .bento-card-hover):hover {
+  border-color: var(--ea-accent);
+  box-shadow: 3px 3px 0 var(--ea-accent);
+  transform: none;
+}
+html[data-ebunny-admin] .group\/card > div:first-child {
+  border-bottom-color: var(--ea-line);
+  background: color-mix(in srgb, var(--ea-accent) 5%, var(--ea-surface));
+}
+html[data-ebunny-admin] .group\/card h2 {
+  font-size: 17px;
+  letter-spacing: 0.02em;
+}
+html[data-ebunny-admin] .group\/card a:hover {
+  background: color-mix(in srgb, var(--ea-accent) 8%, transparent);
+}
+html[data-ebunny-admin] :is(.btn-primary, .btn-secondary) {
+  min-height: 40px;
+  border: 1.5px solid var(--ea-line);
+  border-radius: 5px;
+  font-weight: 800;
+  box-shadow: 2px 2px 0 var(--ea-shadow);
+}
+html[data-ebunny-admin] .btn-primary {
+  background: var(--ea-accent);
+  border-color: #25212b;
+  color: rgb(var(--color-on-accent));
+}
+html[data-ebunny-admin] .btn-secondary {
+  background: var(--ea-surface);
+  color: var(--ea-text);
+}
+html[data-ebunny-admin] :is(.btn-primary, .btn-secondary):not(:disabled):hover {
+  filter: brightness(1.04);
+}
+html[data-ebunny-admin]
+  :is(
+    input:not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="range"]),
+    textarea,
+    select
+  ) {
+  border-color: var(--ea-line);
+  border-radius: 5px;
+  background-color: var(--ea-bg);
+  color: var(--ea-text);
+}
+html[data-ebunny-admin] :is(button, a, input, textarea, select):focus-visible {
+  outline: 2px solid var(--ea-accent);
+  outline-offset: 3px;
+}
+html[data-ebunny-admin] :is(input, textarea)::placeholder {
+  color: var(--ea-muted);
+  opacity: 0.8;
+}
+html[data-ebunny-admin] :is([role="dialog"], .sheet-container) {
+  background-color: var(--ea-surface);
+  border-color: var(--ea-line);
+  border-radius: 10px;
+}
+html[data-ebunny-admin] th {
+  color: var(--ea-muted);
+  font-weight: 800;
+}
+html[data-ebunny-admin] :is(thead, .sticky.border-b) {
+  background-color: var(--ea-surface);
+}
+html[data-ebunny-admin] :is(td, th) {
+  border-color: var(--ea-line);
+}
+/* Violet decorative chips become brand pink; semantic success/error/warning stay distinct. */
+html[data-ebunny-admin] :is(.text-purple-400, .text-violet-400) {
+  color: rgb(var(--color-accent-400));
+}
+html[data-ebunny-admin] :is(.bg-purple-500\/20, .bg-violet-500\/20) {
+  background-color: rgb(var(--color-accent-500) / 0.14);
+}
+html[data-ebunny-admin] .ebunny-wordmark {
+  display: inline-flex;
+  font:
+    800 29px / 1.15 "eBunny Logo",
+    Arial,
+    sans-serif;
+  letter-spacing: -1.2px;
+  white-space: nowrap;
+  transform: skewX(-10deg) rotate(-2deg);
+  color: var(--ea-text);
+}
+html[data-ebunny-admin] .ebunny-wordmark b {
+  font-weight: inherit;
+  color: rgb(var(--color-accent-400));
+}
+html[data-ebunny-admin] .ebunny-wordmark small {
+  font: 700 8px / 1 monospace;
+  letter-spacing: 1px;
+  margin-left: 7px;
+}
+html[data-ebunny-admin] .ebunny-brand-link > :not(.ebunny-wordmark) {
+  display: none;
+}
+html[data-ebunny-admin] .ebunny-desktop-header {
+  background: var(--ea-bg);
+  border-color: var(--ea-line);
+}
+html[data-ebunny-admin] .admin-orb {
+  display: none;
+}
+@media (max-width: 639px) {
+  html[data-ebunny-admin] h1 {
+    font-size: 25px;
+  }
+  html[data-ebunny-admin] .ebunny-wordmark {
+    font-size: 25px;
+  }
+}
+/* Replace the old animated page background with the same quiet paper texture. */
+html[data-ebunny-admin] body > .pointer-events-none.fixed.inset-0[style*="z-index: -2"] {
+  display: none;
+}
+html[data-ebunny-admin] .group\/card > div:first-child > div:first-child {
+  background: #ff87bb !important;
+}
+html[data-ebunny-admin] .group\/card:nth-child(odd) > div:first-child > div:first-child {
+  background: #d8f882 !important;
+}
+html[data-ebunny-admin] .group\/card > div:first-child > div:first-child > span {
+  color: #25212b;
+}
+html[data-ebunny-admin] .ebunny-desktop-header nav a[href="/admin"] {
+  color: var(--ea-text);
+}

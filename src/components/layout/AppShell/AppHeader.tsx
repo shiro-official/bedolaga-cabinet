@@ -1,3 +1,4 @@
+import { EbunnyWordmark } from '@/components/ebunny/Wordmark';
 import { Link, useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
@@ -186,8 +187,12 @@ export function AppHeader({
             <Link
               to="/"
               onClick={() => setMobileMenuOpen(false)}
-              className={cn('flex flex-shrink-0 items-center gap-2.5', !appName && 'mr-4')}
+              className={cn(
+                'ebunny-brand-link flex flex-shrink-0 items-center gap-2.5',
+                !appName && 'mr-4',
+              )}
             >
+              <EbunnyWordmark />
               <div className="relative flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-linear-lg border border-dark-700/50 bg-dark-800/80 shadow-md">
                 <span
                   className={cn(

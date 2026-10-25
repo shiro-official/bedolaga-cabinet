@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
+import { isEbunnyPath } from '@/components/ebunny/brand';
 import { create } from 'zustand';
 import { BackgroundRenderer } from './BackgroundRenderer';
 
@@ -26,7 +28,10 @@ export function useBackgroundConsumer() {
 }
 
 export function BackgroundHost() {
-  const active = useBackgroundConsumers((s) => s.count > 0);
+  const { pathname } = useLocation();
+  const ebunny = isEbunnyPath(pathname);
+  const hasConsumer = useBackgroundConsumers((s) => s.count > 0);
+  const active = hasConsumer && !ebunny;
   const [mounted, setMounted] = useState(active);
 
   useEffect(() => {
@@ -41,5 +46,5 @@ export function BackgroundHost() {
     return () => clearTimeout(timer);
   }, [active]);
 
-  return mounted ? <BackgroundRenderer /> : null;
+  return mounted && !ebunny ? <BackgroundRenderer /> : null;
 }
